@@ -280,7 +280,69 @@ async function newPassword(req,res){
         res.status(500).json({ error: 'Internal server error' });
     }
 }
+async function showDetails(req,res){
+    try{
+        const email=req.params.email;
+        if(!email){
+            return res.status(400).json("Internal server error");
+        }
+        const user=await User.findOne({email});
+        if(!user){
+            return res.status(400).json("Internal server error");
+        }
+        const obj={
+            name:user.name,
+            email:user.email,
+            gender:user.gender,
+            mobile_number:user.mobile_number,
+            Educational_Qualification:user.Educational_Qualification,
+            role:user.role,
+            field:user.field,
+        }
+        return res.status(200).json({message:"Profile details successfully shown",details:obj})
+    }catch(error){
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });   
+    }
+}
+
+async function deleteUser(req,res){
+    try{
+        const email=req.params.email;
+        if(!email){
+            return res.status(400).json("Internal server error");
+        }
+        const user=User.findOne({email:email});
+        if(!user){
+            return res.status(400).json("No such user exists");
+        }
+        const deleted_user=await User.findOneAndDelete({"email":email});
+        return res.status(200).json({message:"User deleted successfully!"});
+    }catch(error){
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+async function isMailVerified(req,res){
+    try{
+        const email=req.params.email;
+        if(!email){
+            return res.status(400).json("Internal server error");
+        }
+        const user=await User.findOne({email:email});
+        if(!user){
+            return res.status(400).json("No such user found");
+        }
+        const status=user.emailVerified;
+        console.log("status:",status);
+        return res.status(200).json({msg:"Success",status:status});
+    }catch(error){
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
 
 
 
-module.exports={handleUserSignup,enterField,verifyOTP,resetPassword,handleUserLogin,verifyMail,newPassword}
+module.exports={handleUserSignup,enterField,verifyOTP,resetPassword,handleUserLogin,verifyMail,newPassword,showDetails,deleteUser,isMailVerified}
