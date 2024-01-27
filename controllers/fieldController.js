@@ -1,6 +1,6 @@
 const mongoose=require("mongoose");
 
-const Fields = require('../models/fieldsModel.js');
+const Fieldss = require('../models/fieldsModel.js');
 
 async function addNewFields(req,res){
     try{
@@ -17,7 +17,7 @@ async function addNewFields(req,res){
             name:name,
             description:description,
         };
-        const result =await Fields.create(obj);
+        const result =await Fieldss.create(obj);
         return res.status(200).json({msg:"New Field successfully added!",result:result});
     }catch(error){
         res.status(500).json("Internal server error");

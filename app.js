@@ -16,10 +16,12 @@ app.use(cookieParser());
 
 const userRoutes=require("./routes/userRoutes.js");
 const fieldsRoutes=require("./routes/fieldRoutes.js");
-
+const courseRoutes=require("./routes/courseRoutes.js");
 
 app.use("/user",userRoutes);
 app.use("/fields",fieldsRoutes);
+app.use("/course",courseRoutes);
+
 
 connectMongoDb(process.env.MONGO_URL)
   .then(() => console.log("MongoDB Connected!"));
