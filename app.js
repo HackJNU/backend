@@ -15,12 +15,16 @@ const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
 const userRoutes=require("./routes/userRoutes.js");
-const fieldsRoutes=require("./routes/fieldRoutes.js");
 const courseRoutes=require("./routes/courseRoutes.js");
+//const imageRoutes=require("./routes/imageRoutes.js");
+const testRoutes=require("./routes/testRoutes.js");
+const fieldsRoutes=require("./routes/fieldRoutes.js");
 
 app.use("/user",userRoutes);
-app.use("/fields",fieldsRoutes);
 app.use("/course",courseRoutes);
+//app.use("/image",imageRoutes);
+app.use("/test",testRoutes);
+app.use("/fields",fieldsRoutes);
 
 
 connectMongoDb(process.env.MONGO_URL)

@@ -27,7 +27,7 @@ async function addNewFields(req,res){
 
 async function showAllFields(req,res){
     try{
-        const obj=await Fields.find();
+        const obj=await Fieldss.find();
         console.log("obj:",obj);
         return res.status(200).json(obj);
     }catch(error){
